@@ -7,7 +7,7 @@
   "unpkg": "lib/index.iife.js",
   "jsdelivr": "lib/index.iife.js",
   "funding": "https://github.com/sponsors/antfu",
-  "repository": "https://github.com/antfu/vue-demi.git",
+  "repository": "https://github.com/nuochong/vue-demi-auto",
   "author": "Anthony Fu <anthonyfu117@hotmail.com>",
   "sideEffects": false,
   "license": "MIT",

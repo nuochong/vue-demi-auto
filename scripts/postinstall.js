@@ -5,7 +5,7 @@ const fs = require('fs');
 const os = require('os');
 const loadJsonFile = require('load-json-file');
 const writeJsonFile = require('write-json-file');
-const mainPath = resolve(process.cwd(), '../');
+const mainPath = resolve(__dirname, '../../');
 
 let resourseArr = [];
 mainPath.replace(/(.*?node_modules)/g, (match, p1, offset) => {
