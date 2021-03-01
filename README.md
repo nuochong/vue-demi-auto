@@ -25,7 +25,7 @@ yarn add vue-demi
 
 Add `vue` and `@vue/composition-api` to your plugin's peer dependencies to specify what versions you support.
 
-```json
+```jsonc
 {
   "dependencies": {
     "vue-demi": "latest"
@@ -33,7 +33,15 @@ Add `vue` and `@vue/composition-api` to your plugin's peer dependencies to speci
   "peerDependencies": {
     "@vue/composition-api": "^1.0.0-beta.1",
     "vue": "^2.0.0 || >=3.0.0-rc.0"
-  }
+  },
+  "peerDependenciesMeta": {
+    "@vue/composition-api": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "vue": "^3.0.0" // or "^2.6.0" base on your preferred working environment
+  },
 }
 ```
 
@@ -61,15 +69,26 @@ if (isVue2) {
 }
 ```
 
+### `Vue2`
+
+To avoid bringing in all the tree-shakable modules, we provide a `Vue2` export to support access to Vue 2's global API. (See [#41](https://github.com/vueuse/vue-demi/issues/41).)
+
+```ts
+import { Vue2 } from 'vue-demi'
+
+if (Vue2) {
+  Vue2.config.ignoredElements.push('x-foo')
+}
+```
+
 ### `install()`
 
 Composition API in Vue 2 is provided as a plugin and need to install to Vue instance before using. Normally, `vue-demi` will try to install it automatically. For some usages that you might need to ensure the plugin get installed correctly, the `install()` API is exposed to as a safe version of `Vue.use(CompositionAPI)`. `install()` in Vue 3 environment will be an empty function (no-op).
 
 ```ts
-import Vue from 'vue'
 import { install } from 'vue-demi'
 
-install(Vue)
+install()
 ```
 
 ## CLI
@@ -101,10 +120,12 @@ import * as Vue from 'vue3'
 
 var isVue2 = false
 var isVue3 = true
+var Vue2 = undefined
 
 export * from 'vue3'
 export {
   Vue,
+  Vue2,
   isVue2,
   isVue3,
 }
@@ -118,6 +139,38 @@ If the `postinstall` hook doesn't get triggered or you have updated the Vue vers
 npx vue-demi-fix
 ```
 
+### Isomorphic Testings
+
+You can support testing for both versions by adding npm alias in your dev dependencies. For example:
+
+```json
+{
+  "scripts": {
+    "test:2": "vue-demi-switch 2 vue2 && jest",
+    "test:3": "vue-demi-switch 3 && jest",
+  },
+  "devDependencies": {
+    "vue": "^3.0.0",
+    "vue2": "npm:vue@2"
+  },
+}
+```
+
+or
+
+```json
+{
+  "scripts": {
+    "test:2": "vue-demi-switch 2 && jest",
+    "test:3": "vue-demi-switch 3 vue3 && jest",
+  },
+  "devDependencies": {
+    "vue": "^2.6.0",
+    "vue3": "npm:vue@3"
+  },
+}
+```
+
 ## Examples
 
 See [examples](./examples).
@@ -128,6 +181,7 @@ See [examples](./examples).
 - [@vue/apollo-composable](https://github.com/vuejs/vue-apollo/tree/v4/packages/vue-apollo-composable) - Apollo GraphQL functions for Vue Composition API
 - [vuelidate](https://github.com/vuelidate/vuelidate) - Simple, lightweight model-based validation
 - [vue-composition-test-utils](https://github.com/ariesjia/vue-composition-test-utils) - Simple vue composition api unit test utilities
+- [vue-use-stripe](https://github.com/frandiox/vue-use-stripe) - Stripe Elements wrapper for Vue.js
 
 > open a PR to add your library ;)
 

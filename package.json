@@ -1,6 +1,6 @@
 {
   "name": "vue-demi-auto",
-  "version": "0.6.2",
+  "version": "0.7.1",
   "main": "lib/index.cjs.js",
   "typings": "lib/index.d.ts",
   "module": "lib/index.esm.js",
@@ -11,29 +11,36 @@
   "author": "Anthony Fu <anthonyfu117@hotmail.com>",
   "sideEffects": false,
   "license": "MIT",
-  "scripts": {
-    "postinstall": "node ./scripts/postinstall.js",
-    "release": "npx bumpp --tag --commit --push && npm publish"
-  },
-  "peerDependencies": {
-    "vue": "^2.6.0 || >=3.0.0-rc.1"
+  "author": "Anthony Fu <anthonyfu117@hotmail.com>",
+  "main": "lib/index.cjs.js",
+  "jsdelivr": "lib/index.iife.js",
+  "unpkg": "lib/index.iife.js",
+  "module": "lib/index.esm.js",
+  "typings": "lib/index.d.ts",
+  "bin": {
+    "vue-demi-fix": "bin/vue-demi-fix.js",
+    "vue-demi-switch": "bin/vue-demi-switch.js"
   },
   "files": [
     "lib",
     "bin",
     "scripts"
   ],
-  "bin": {
-    "vue-demi-fix": "bin/vue-demi-fix.js",
-    "vue-demi-switch": "bin/vue-demi-switch.js"
+  "scripts": {
+    "postinstall": "node ./scripts/postinstall.js",
+    "release": "npx bumpp --tag --commit --push && npm publish"
+  },
+  "peerDependencies": {
+    "@vue/composition-api": "^1.0.0-beta.1",
+    "vue": "^2.6.0 || >=3.0.0-rc.1"
   },
   "dependencies": {
     "load-json-file": "^6.2.0",
     "write-json-file": "^4.3.0"
   },
-  "devDependencies": {
-    "@vue/composition-api": "^1.0.0-beta.25",
-    "vue": "^3.0.5",
-    "vue2": "^2.6.12"
+  "peerDependenciesMeta": {
+    "@vue/composition-api": {
+      "optional": true
+    }
   }
 }
